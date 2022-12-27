@@ -1,9 +1,16 @@
-<script setup lang="ts">
-import TheWelcome from '../components/TheWelcome.vue'
+<script lang="ts">
+import GameControl from "@/components/GameControl.vue";
+
+export default {
+  components: {GameControl}
+}
 </script>
 
 <template>
-  <main>
-    <TheWelcome />
-  </main>
+ <div>
+<GameControl/>
+ </div>
 </template>
+
+<style>
+</style>
