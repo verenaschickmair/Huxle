@@ -4,46 +4,39 @@
 
 <script setup>
 import SimpleKeyboard from "simple-keyboard";
-import "simple-keyboard/build/css/index.css"
-import {ref,onMounted,watch} from "vue";
+import "simple-keyboard/build/css/index.css";
+import { ref, onMounted, watch } from "vue";
 
-const keyboard = ref(null)
-const emit = defineEmits(["onKeyPress"])
+const keyboard = ref(null);
+const emit = defineEmits(["onKeyPress"]);
 const onKeyPress = (button) => {
   emit("onKeyPress", button);
-}
+};
 
 const props = defineProps({
-  guessedLetters: Object
-})
+  guessedLetters: Object,
+});
 
-onMounted( () => {
+onMounted(() => {
   keyboard.value = new SimpleKeyboard("simple-keyboard", {
     layout: {
       default: [
-          "q w e r t y u i o p",
+        "q w e r t y u i o p",
         "a s d f g h j k l",
-          "{enter} z x c v b n m {bksp}"
+        "{enter} z x c v b n m {bksp}",
       ],
     },
     onKeyPress: onKeyPress,
-
   });
 });
 watch(
-    () => props.guessedLetters,
-    (guessedLetters,prevGussedLetters) => {
-      keyboard.value.addButtonTheme(
-          guessedLetters.miss.join(" "), "miss"
-      )
-      keyboard.value.addButtonTheme(
-          guessedLetters.found.join(" "), "found"
-      )
-      keyboard.value.addButtonTheme(
-          guessedLetters.hint.join(" "), "hint"
-      )
-    },
-    {deep:true}
+  () => props.guessedLetters,
+  (guessedLetters, prevGussedLetters) => {
+    keyboard.value.addButtonTheme(guessedLetters.miss.join(" "), "miss");
+    keyboard.value.addButtonTheme(guessedLetters.found.join(" "), "found");
+    keyboard.value.addButtonTheme(guessedLetters.hint.join(" "), "hint");
+  },
+  { deep: true }
 );
 </script>
 
