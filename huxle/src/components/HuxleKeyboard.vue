@@ -5,13 +5,17 @@
 <script setup>
 import SimpleKeyboard from "simple-keyboard";
 import "simple-keyboard/build/css/index.css"
-import {ref,onMounted} from "vue";
+import {ref,onMounted,watch} from "vue";
 
 const keyboard = ref(null)
 const emit = defineEmits(["onKeyPress"])
 const onKeyPress = (button) => {
   emit("onKeyPress", button);
 }
+
+const props = defineProps({
+  guessedLetters: Object
+})
 
 onMounted( () => {
   keyboard.value = new SimpleKeyboard("simple-keyboard", {
@@ -26,4 +30,36 @@ onMounted( () => {
 
   });
 });
+watch(
+    () => props.guessedLetters,
+    (guessedLetters,prevGussedLetters) => {
+      keyboard.value.addButtonTheme(
+          guessedLetters.miss.join(" "), "miss"
+      )
+      keyboard.value.addButtonTheme(
+          guessedLetters.found.join(" "), "found"
+      )
+      keyboard.value.addButtonTheme(
+          guessedLetters.hint.join(" "), "hint"
+      )
+    },
+    {deep:true}
+);
 </script>
+
+<style>
+div.miss {
+  @apply bg-gray-500 !important;
+  @apply text-white;
+}
+
+div.found {
+  @apply bg-green-600 !important;
+  @apply text-white;
+}
+
+div.hint:not(.found) {
+  @apply bg-yellow-500 !important;
+  @apply text-white;
+}
+</style>

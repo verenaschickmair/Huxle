@@ -8,7 +8,7 @@ export default {
 
 <template>
  <div>
-<GameControl/>
+<GameControl solution="books"/>
  </div>
 </template>
 
