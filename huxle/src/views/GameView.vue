@@ -3,12 +3,15 @@ import { defineComponent } from "vue";
 import GameControl from "@/components/GameControl.vue";
 import LanguageComponent from "@/components/LanguageComponent.vue";
 import type { LanguageType } from "@/components/LanguageType";
+import type {WordData} from "@/components/WordData";
+
 
 export default defineComponent({
   components: { LanguageComponent, GameControl },
   data() {
     return {
       selectedLanguage: "EN" as LanguageType,
+      data: {wordId:"", wordGerman:"", wordEnglish:""} as WordData
     };
   },
   methods: {
@@ -26,8 +29,8 @@ export default defineComponent({
 <template>
   <div>
     <LanguageComponent @language-selected="handleLanguageChange" />
-    <GameControl solution="books" v-if="selectedLanguage === 'EN'" />
-    <GameControl solution="buche" v-else-if="selectedLanguage === 'DE'" />
+    <GameControl :solution="data.wordEnglish" v-if="selectedLanguage === 'EN'" />
+    <GameControl :solution="data.wordGerman" v-else-if="selectedLanguage === 'DE'" />
   </div>
 </template>
 
