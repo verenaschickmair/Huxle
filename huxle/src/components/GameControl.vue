@@ -1,8 +1,7 @@
 <script lang="ts">
-import { defineComponent } from "vue";
 import HuxleKeyboard from "@/components/HuxleKeyboard.vue";
 import WordRow from "@/components/WordRow.vue";
-import { state } from "vue-tsc/out/shared";
+import { defineComponent } from "vue";
 
 const ENTER = "{enter}";
 const BACKSPACE = "{bksp}";
@@ -33,7 +32,7 @@ export default defineComponent({
           0,
           -1
         );
-      } else if (currentGuess.length < 5) {
+      } else if (currentGuess.length < 5 && key.length == 1) {
         const alphabetRegex = /[a-zA-Z]/;
         if (alphabetRegex.test(key)) {
           this.state.guesses[this.state.currentGuessIndex] += key;
