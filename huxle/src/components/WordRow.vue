@@ -3,16 +3,16 @@
     <LetterBox
       v-for="i in 5"
       :key="i"
-      :letter="this.value[i - 1]"
-      :letterState="this.letterStates[i - 1]"
+      :letter="value ? value[i - 1] : ''"
+      :letterState="letterStates[i - 1]"
     />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
 import LetterBox from "@/components/LetterBox.vue";
-import type { LetterState } from "@/components/LetterState";
+import type { LetterState } from "@/types/LetterState";
+import { defineComponent } from "vue";
 
 export default defineComponent({
   components: { LetterBox },
@@ -27,11 +27,11 @@ export default defineComponent({
     };
   },
   watch: {
-    submitted: async function (newSubmitted, prevSubmitted) {
+    submitted: async function () {
       if (this.$props.submitted) {
         let solution = this.$props.solution;
         let value = this.$props.value;
-        if (solution == undefined || value == undefined) {
+        if (solution === undefined || value === undefined) {
           return;
         }
         let temp: LetterState[] = ["miss", "miss", "miss", "miss", "miss"];
@@ -54,6 +54,7 @@ export default defineComponent({
           this.letterStates[i] = temp[i];
           await new Promise((resolve) => setTimeout(resolve, 50));
         }
+        this.$emit("letterRowState", this.letterStates);
       }
     },
   },

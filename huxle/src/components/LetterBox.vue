@@ -13,7 +13,6 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import type { LetterState } from "@/components/LetterState";
 
 export default defineComponent({
   props: {

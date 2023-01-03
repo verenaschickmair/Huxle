@@ -2,14 +2,14 @@
   <div class="simple-keyboard"></div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import SimpleKeyboard from "simple-keyboard";
 import "simple-keyboard/build/css/index.css";
-import { ref, onMounted, watch } from "vue";
+import { onMounted, ref, watch } from "vue";
 
-const keyboard = ref(null);
+const keyboard = ref();
 const emit = defineEmits(["onKeyPress"]);
-const onKeyPress = (button) => {
+const onKeyPress = (button: any) => {
   emit("onKeyPress", button);
 };
 
@@ -31,10 +31,10 @@ onMounted(() => {
 });
 watch(
   () => props.guessedLetters,
-  (guessedLetters, prevGussedLetters) => {
-    keyboard.value.addButtonTheme(guessedLetters.miss.join(" "), "miss");
-    keyboard.value.addButtonTheme(guessedLetters.found.join(" "), "found");
-    keyboard.value.addButtonTheme(guessedLetters.hint.join(" "), "hint");
+  (guessedLetters) => {
+    keyboard.value.addButtonTheme(guessedLetters?.miss.join(" "), "miss");
+    keyboard.value.addButtonTheme(guessedLetters?.found.join(" "), "found");
+    keyboard.value.addButtonTheme(guessedLetters?.hint.join(" "), "hint");
   },
   { deep: true }
 );

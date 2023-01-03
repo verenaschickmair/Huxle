@@ -8,7 +8,6 @@ import {
   TransitionChild,
   TransitionRoot,
 } from "@headlessui/vue";
-import { CheckIcon } from "@heroicons/vue/24/outline";
 import { defineComponent, ref } from "vue";
 
 const ENTER = "{enter}";
@@ -25,7 +24,6 @@ export default defineComponent({
     DialogTitle,
     TransitionChild,
     TransitionRoot,
-    CheckIcon,
   },
   methods: {
     handleInput(key: string) {
@@ -53,16 +51,24 @@ export default defineComponent({
       if (solution == undefined) {
         return;
       }
-      if (currentGuess.length == 5) {
+      if (currentGuess.length === 5) {
         this.state.currentGuessIndex++;
         for (let i = 0; i < currentGuess.length; i++) {
           let currentChar = currentGuess.charAt(i);
-          if (currentChar == solution.charAt(i)) {
-            this.state.guessedLetters.found.push(currentChar);
-          } else if (solution.indexOf(currentChar) != -1) {
-            this.state.guessedLetters.hint.push(currentChar);
-          } else {
-            this.state.guessedLetters.miss.push(currentChar);
+
+          switch (true) {
+            case currentChar === solution.charAt(i):
+              this.state.guessedLetters.found.push(currentChar);
+              this.state.guessOrder.push("found");
+              break;
+            case solution.indexOf(currentChar) !== -1:
+              this.state.guessedLetters.hint.push(currentChar);
+              this.state.guessOrder.push("hint");
+              break;
+            default:
+              this.state.guessedLetters.miss.push(currentChar);
+              this.state.guessOrder.push("miss");
+              break;
           }
         }
         if (this.hasWon) {
@@ -74,6 +80,14 @@ export default defineComponent({
           return;
         }
       }
+    },
+    fillArrays() {
+      while (this.state.guesses.length < 6) {
+        this.state.guesses.push("");
+      }
+    },
+    addRowState(letterStates: string[]) {
+      this.state.guessOrder.concat(letterStates);
     },
     async handleWin() {
       await new Promise((resolve) => setTimeout(resolve, END_DURATION));
@@ -88,13 +102,15 @@ export default defineComponent({
     window.addEventListener("keyup", (e) => {
       e.preventDefault();
       let key =
-        e.keyCode == 13
+        e.keyCode === 13
           ? ENTER
-          : e.keyCode == 8
+          : e.keyCode === 8
           ? BACKSPACE
           : e.key.toLowerCase();
       this.handleInput(key);
     });
+
+    this.fillArrays();
   },
   computed: {
     hasWon(): Boolean {
@@ -113,13 +129,14 @@ export default defineComponent({
       won: false,
       lost: false,
       state: {
-        guesses: ["", "", "", "", "", ""],
+        guesses: [] as string[],
         currentGuessIndex: 0,
         guessedLetters: {
           miss: [] as string[],
           found: [] as string[],
           hint: [] as string[],
         },
+        guessOrder: [] as string[],
       },
     };
   },
@@ -140,6 +157,7 @@ export default defineComponent({
         :value="guess"
         :solution="$props.solution"
         :submitted="i < state.currentGuessIndex"
+        @letterRowState="addRowState($event)"
       />
     </div>
     <HuxleKeyboard
@@ -181,14 +199,6 @@ export default defineComponent({
               class="relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6"
             >
               <div>
-                <div
-                  class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-100"
-                >
-                  <CheckIcon
-                    class="h-6 w-6 text-green-600"
-                    aria-hidden="true"
-                  />
-                </div>
                 <div class="mt-3 text-center sm:mt-5">
                   <DialogTitle
                     as="h3"
@@ -202,18 +212,36 @@ export default defineComponent({
                     class="text-lg font-medium leading-6 text-gray-900"
                     >You lost!</DialogTitle
                   >
-                  <div class="mt-2">
-                    <p class="text-sm text-gray-500">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Consequatur amet labore.
-                    </p>
+                  <p class="text-sm text-gray-500" v-if="won">
+                    Share your result with your friends
+                  </p>
+
+                  <div class="mt-2 flex justify-center" v-if="won">
+                    <div class="w-20 grid grid-cols-5 gap-1 grid-rows-5">
+                      <div
+                        class="col-span-1 border flex items-center justify-center h-4"
+                        v-for="(item, index) in state.guessOrder"
+                        :key="item + index"
+                        :class="{
+                          'green-box': item === 'found',
+                          'gray-box': item === 'miss',
+                          'yellow-box': item === 'hint',
+                        }"
+                      ></div>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div class="mt-5 sm:mt-6">
+              <div class="mt-5 space-y-2 sm:mt-6">
                 <button
                   type="button"
-                  class="inline-flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:text-sm"
+                  class="inline-flex w-full justify-center rounded-md border border-transparent bg-gray-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 sm:text-sm"
+                >
+                  Share
+                </button>
+                <button
+                  type="button"
+                  class="inline-flex w-full justify-center rounded-md border border-transparent bg-gray-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 sm:text-sm"
                   @click="
                     open = false;
                     $router.back();
@@ -230,4 +258,19 @@ export default defineComponent({
   </TransitionRoot>
 </template>
 
-<style></style>
+<style>
+.green-box {
+  @apply border-green-600;
+  @apply bg-green-500;
+}
+
+.gray-box {
+  @apply border-gray-600;
+  @apply bg-gray-500;
+}
+
+.yellow-box {
+  @apply border-yellow-600;
+  @apply bg-yellow-500;
+}
+</style>
