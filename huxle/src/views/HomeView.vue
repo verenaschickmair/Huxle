@@ -11,12 +11,14 @@ export default {
     return {
       code: "",
       showModal: false,
+      modalDescription: "",
     };
   },
   methods: {
     checkCode(): void {
       if (!this.code.length) {
-        alert("Please enter a ten-digit code.");
+        this.modalDescription = "Please enter a ten-digit code.";
+        this.showModal = true;
       } else this.getCode();
     },
     async getCode() {
@@ -33,6 +35,7 @@ export default {
       if (data.data.length) {
         router.push(`/${this.code}`);
       } else {
+        this.modalDescription = "Sorry, the given link is invalid.";
         this.showModal = true;
       }
     },
@@ -197,7 +200,7 @@ export default {
   <ModalComponent
     :open="true"
     headline="Oops..."
-    description="Sorry, the given link is invalid."
+    :description="modalDescription"
     :redirect="true"
     v-if="showModal"
     @close="showModal = false"
