@@ -1,14 +1,8 @@
 <script lang="ts">
 import HuxleKeyboard from "@/components/HuxleKeyboard.vue";
+import ModalComponent from "@/components/ModalComponent.vue";
 import WordRow from "@/components/WordRow.vue";
-import {
-  Dialog,
-  DialogPanel,
-  DialogTitle,
-  TransitionChild,
-  TransitionRoot,
-} from "@headlessui/vue";
-import { defineComponent, ref } from "vue";
+import { defineComponent } from "vue";
 
 const ENTER = "{enter}";
 const BACKSPACE = "{bksp}";
@@ -18,12 +12,7 @@ export default defineComponent({
   components: {
     WordRow,
     HuxleKeyboard,
-    // eslint-disable-next-line vue/no-reserved-component-names
-    Dialog,
-    DialogPanel,
-    DialogTitle,
-    TransitionChild,
-    TransitionRoot,
+    ModalComponent,
   },
   methods: {
     handleInput(key: string) {
@@ -125,7 +114,6 @@ export default defineComponent({
   },
   data() {
     return {
-      open: ref(true),
       won: false,
       lost: false,
       state: {
@@ -166,96 +154,14 @@ export default defineComponent({
     />
   </div>
 
-  <TransitionRoot as="template" :show="open" v-if="won || lost">
-    <Dialog as="div" class="relative z-10" @close="open = false">
-      <TransitionChild
-        as="template"
-        enter="ease-out duration-300"
-        enter-from="opacity-0"
-        enter-to="opacity-100"
-        leave="ease-in duration-200"
-        leave-from="opacity-100"
-        leave-to="opacity-0"
-      >
-        <div
-          class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
-        />
-      </TransitionChild>
-
-      <div class="fixed inset-0 z-10 overflow-y-auto">
-        <div
-          class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0"
-        >
-          <TransitionChild
-            as="template"
-            enter="ease-out duration-300"
-            enter-from="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-            enter-to="opacity-100 translate-y-0 sm:scale-100"
-            leave="ease-in duration-200"
-            leave-from="opacity-100 translate-y-0 sm:scale-100"
-            leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-          >
-            <DialogPanel
-              class="relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6"
-            >
-              <div>
-                <div class="mt-3 text-center sm:mt-5">
-                  <DialogTitle
-                    as="h3"
-                    class="text-lg font-medium leading-6 text-gray-900"
-                    v-if="won"
-                    >You won!</DialogTitle
-                  >
-                  <DialogTitle
-                    v-else
-                    as="h3"
-                    class="text-lg font-medium leading-6 text-gray-900"
-                    >You lost!</DialogTitle
-                  >
-                  <p class="text-sm text-gray-500" v-if="won">
-                    Share your result with your friends
-                  </p>
-
-                  <div class="mt-2 flex justify-center" v-if="won">
-                    <div class="w-20 grid grid-cols-5 gap-1 grid-rows-5">
-                      <div
-                        class="col-span-1 border flex items-center justify-center h-4"
-                        v-for="(item, index) in state.guessOrder"
-                        :key="item + index"
-                        :class="{
-                          'green-box': item === 'found',
-                          'gray-box': item === 'miss',
-                          'yellow-box': item === 'hint',
-                        }"
-                      ></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="mt-5 space-y-2 sm:mt-6">
-                <button
-                  type="button"
-                  class="inline-flex w-full justify-center rounded-md border border-transparent bg-gray-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 sm:text-sm"
-                >
-                  Share
-                </button>
-                <button
-                  type="button"
-                  class="inline-flex w-full justify-center rounded-md border border-transparent bg-gray-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 sm:text-sm"
-                  @click="
-                    open = false;
-                    $router.back();
-                  "
-                >
-                  Back
-                </button>
-              </div>
-            </DialogPanel>
-          </TransitionChild>
-        </div>
-      </div>
-    </Dialog>
-  </TransitionRoot>
+  <ModalComponent :open="true" headline="You lost!" v-if="lost" />
+  <ModalComponent
+    :open="true"
+    :guessOrder="state.guessOrder"
+    headline="You won!"
+    description="Share your results with your friends."
+    v-if="won"
+  />
 </template>
 
 <style>

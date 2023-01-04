@@ -5,16 +5,27 @@
       Upload
     </button>
   </div>
+
+  <ModalComponent
+    :open="true"
+    :input="'http://localhost:5173/' + word.wordId"
+    headline="Link to share:"
+    v-if="showModal"
+  />
 </template>
 
 <script lang="ts">
-import type { WordData } from "@/components/WordData";
+import ModalComponent from "@/components/ModalComponent.vue";
+import type { WordData } from "@/types/WordData";
 import axios from "axios";
 import { defineComponent } from "vue";
 import { uuid } from "vue-uuid";
 
 export default defineComponent({
   // TODO create input fields and fill wordGerman and wordEnglish
+  components: {
+    ModalComponent,
+  },
   data() {
     return {
       word: {
@@ -22,6 +33,7 @@ export default defineComponent({
         wordGerman: "",
         wordEnglish: "",
       } as WordData,
+      showModal: false,
     };
   },
   methods: {
@@ -64,6 +76,8 @@ export default defineComponent({
         .then((response) => {
           // TODO generate link and show popup
           console.log(response);
+
+          this.showModal = true;
         })
         .catch((error) => {
           alert(error.message);

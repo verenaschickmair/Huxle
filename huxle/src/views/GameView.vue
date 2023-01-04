@@ -1,8 +1,8 @@
 <script lang="ts">
 import GameControl from "@/components/GameControl.vue";
 import LanguageComponent from "@/components/LanguageComponent.vue";
-import type { LanguageType } from "@/components/LanguageType";
-import type { WordData } from "@/components/WordData";
+import type { LanguageType } from "@/types/LanguageType";
+import type { WordData } from "@/types/WordData";
 import axios from "axios";
 import { defineComponent } from "vue";
 
