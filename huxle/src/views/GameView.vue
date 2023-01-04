@@ -1,17 +1,19 @@
 <script lang="ts">
 import GameControl from "@/components/GameControl.vue";
 import LanguageComponent from "@/components/LanguageComponent.vue";
+import ModalComponent from "@/components/ModalComponent.vue";
 import type { LanguageType } from "@/types/LanguageType";
 import type { WordData } from "@/types/WordData";
 import axios from "axios";
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  components: { LanguageComponent, GameControl },
+  components: { LanguageComponent, GameControl, ModalComponent },
   data() {
     return {
       selectedLanguage: "DE" as LanguageType,
       word: { wordId: "", wordGerman: "", wordEnglish: "" } as WordData,
+      showModal: false,
     };
   },
   methods: {
@@ -32,7 +34,6 @@ export default defineComponent({
         },
       }
     );
-    console.log(data);
 
     if (data.data.length) {
       this.word = {
@@ -40,10 +41,8 @@ export default defineComponent({
         wordGerman: data.data[0].attributes.word_german,
         wordEnglish: data.data[0].attributes.word_english,
       };
-
-      console.log(this.word);
     } else {
-      window.alert("Invalid link!");
+      this.showModal = true;
     }
   },
 });
@@ -51,8 +50,7 @@ export default defineComponent({
 
 <template>
   <div>
-    <LanguageComponent @language-selected="handleLanguageChange" />
-
+    <LanguageComponent @language-selected="handleLanguageChange($event)" />
     <GameControl
       :solution="word.wordEnglish"
       v-if="selectedLanguage === 'EN'"
@@ -60,6 +58,13 @@ export default defineComponent({
     <GameControl
       :solution="word.wordGerman"
       v-else-if="selectedLanguage === 'DE'"
+    />
+    <ModalComponent
+      :open="true"
+      headline="Oops..."
+      description="Sorry, the given link is invalid."
+      v-if="showModal"
+      @close="showModal = false"
     />
   </div>
 </template>

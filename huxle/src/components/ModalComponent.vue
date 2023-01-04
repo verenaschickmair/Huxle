@@ -24,6 +24,8 @@ export default defineComponent({
     description: String,
     guessOrder: Array<String>,
     input: String,
+    switchLanguage: Boolean,
+    redirect: Boolean,
   },
   data() {
     return {
@@ -32,12 +34,25 @@ export default defineComponent({
     };
   },
   methods: {
-    copy() {
+    copyLink() {
       if (this.copyText) {
         clipboardCopy(this.copyText);
       }
     },
+    copyGuesses() {
+      if (this.guessOrder) {
+        let emojis = "";
+        for (let item in this.guessOrder) {
+          if (item === "miss") emojis + String.fromCodePoint(0x1f354);
+          if (item === "hint") emojis + String.fromCodePoint(0x1f354);
+          if (item === "found") emojis + String.fromCodePoint(0x1f354);
+        }
+        console.log(emojis);
+        clipboardCopy(emojis);
+      }
+    },
   },
+  emits: ["answer", "close"],
 });
 </script>
 
@@ -105,7 +120,7 @@ export default defineComponent({
                       </div>
                       <button
                         type="button"
-                        @click="copy()"
+                        @click="copyLink()"
                         class="relative -ml-px inline-flex items-center space-x-2 rounded-r-md border border-gray-300 bg-gray-50 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
                       >
                         <span>Copy</span>
@@ -132,17 +147,30 @@ export default defineComponent({
               <div class="mt-5 space-y-2 sm:mt-6">
                 <button
                   v-if="guessOrder"
+                  @click="copyGuesses()"
                   type="button"
                   class="inline-flex w-full justify-center rounded-md border border-transparent bg-gray-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 sm:text-sm"
                 >
                   Share
                 </button>
                 <button
+                  v-if="switchLanguage"
+                  @click="
+                    isOpen = false;
+                    $emit('answer', true);
+                  "
+                  type="button"
+                  class="inline-flex w-full justify-center rounded-md border border-transparent bg-gray-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 sm:text-sm"
+                >
+                  Switch language
+                </button>
+                <button
                   type="button"
                   class="inline-flex w-full justify-center rounded-md border border-transparent bg-gray-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 sm:text-sm"
                   @click="
                     isOpen = false;
-                    $router.back();
+                    $emit('close', isOpen);
+                    if (redirect !== true) $router.back();
                   "
                 >
                   Back

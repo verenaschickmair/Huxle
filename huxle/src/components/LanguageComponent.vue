@@ -12,13 +12,26 @@
       {{ language }}
     </button>
   </div>
+
+  <ModalComponent
+    :open="true"
+    description="Do you really want to change the language?"
+    :switchLanguage="true"
+    @answer="changeLanguage($event)"
+    v-if="showModal"
+    @close="showModal = false"
+  />
 </template>
 
 <script lang="ts">
+import ModalComponent from "@/components/ModalComponent.vue";
 import type { LanguageType } from "@/types/LanguageType";
 import { defineComponent } from "vue";
 
 export default defineComponent({
+  components: {
+    ModalComponent,
+  },
   data() {
     return {
       languages: ["DE", "EN"] as Array<LanguageType>,
@@ -29,8 +42,19 @@ export default defineComponent({
   methods: {
     onButtonClick(language: LanguageType) {
       if (language != this.selectedLanguage) {
-        this.selectedLanguage = language;
-        this.$emit("languageSelected", this.selectedLanguage);
+        this.showModal = true;
+      }
+    },
+    changeLanguage(answer: boolean) {
+      if (answer) {
+        let language = this.languages.find(
+          (lang) => lang !== this.selectedLanguage
+        );
+        if (language) {
+          this.selectedLanguage = language;
+          this.$emit("languageSelected", this.selectedLanguage);
+          this.showModal = false;
+        }
       }
     },
   },

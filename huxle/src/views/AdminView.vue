@@ -11,6 +11,7 @@
     :input="'http://localhost:5173/' + word.wordId"
     headline="Link to share:"
     v-if="showModal"
+    @close="showModal = false"
   />
 </template>
 

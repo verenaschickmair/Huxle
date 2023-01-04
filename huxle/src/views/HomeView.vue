@@ -1,3 +1,45 @@
+<script lang="ts">
+import ModalComponent from "@/components/ModalComponent.vue";
+import router from "@/router";
+import axios from "axios";
+
+export default {
+  components: {
+    ModalComponent,
+  },
+  data() {
+    return {
+      code: "",
+      showModal: false,
+    };
+  },
+  methods: {
+    checkCode(): void {
+      if (!this.code.length) {
+        alert("Please enter a ten-digit code.");
+      } else this.getCode();
+    },
+    async getCode() {
+      const { data } = await axios.get(
+        `http://localhost:1337/api/words?filters[word_id]=${this.code}`,
+        {
+          headers: {
+            Authorization:
+              "Bearer 24629ab19d2c880888663211a69c74783bf8e690e52783fbf69392b398245060254889e613c11c1be811bf88106d775ac0ecc72e763b7a6e478bae335099f3300b88dd72c77c38be3826342aaca5b5ddaf45450bc4ee1d252145b4190bb80771aa83579f54e2b8af4b7e9af55a76f10412c2a5d281195f43fcbebec139f50182",
+          },
+        }
+      );
+
+      if (data.data.length) {
+        router.push(`/${this.code}`);
+      } else {
+        this.showModal = true;
+      }
+    },
+  },
+};
+</script>
+
 <template>
   <div class="relative h-full bg-white py-16">
     <div
@@ -151,42 +193,13 @@
       </div>
     </div>
   </div>
+
+  <ModalComponent
+    :open="true"
+    headline="Oops..."
+    description="Sorry, the given link is invalid."
+    :redirect="true"
+    v-if="showModal"
+    @close="showModal = false"
+  />
 </template>
-
-<script lang="ts">
-import router from "@/router";
-import axios from "axios";
-
-export default {
-  data() {
-    return {
-      code: "",
-    };
-  },
-  methods: {
-    checkCode(): void {
-      //case: no code
-      if (!this.code.length) {
-        alert("Please enter a valid code.");
-      } else this.getCode();
-    },
-    async getCode() {
-      const { data } = await axios.get(
-        `http://localhost:1337/api/words?filters[word_id]=${this.code}`,
-        {
-          headers: {
-            Authorization:
-              "Bearer 24629ab19d2c880888663211a69c74783bf8e690e52783fbf69392b398245060254889e613c11c1be811bf88106d775ac0ecc72e763b7a6e478bae335099f3300b88dd72c77c38be3826342aaca5b5ddaf45450bc4ee1d252145b4190bb80771aa83579f54e2b8af4b7e9af55a76f10412c2a5d281195f43fcbebec139f50182",
-          },
-        }
-      );
-
-      if (data.data.length) {
-        router.push(`/${this.code}`);
-      } else {
-        window.alert("Invalid code, please try again.");
-      }
-    },
-  },
-};
-</script>

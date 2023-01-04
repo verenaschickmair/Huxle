@@ -58,5 +58,6 @@ export default defineComponent({
       }
     },
   },
+  emits: ["letterRowState"],
 });
 </script>
