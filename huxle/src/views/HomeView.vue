@@ -201,7 +201,7 @@ export default {
     :open="true"
     headline="Oops..."
     :description="modalDescription"
-    :redirect="true"
+    :redirect="false"
     v-if="showModal"
     @close="showModal = false"
   />

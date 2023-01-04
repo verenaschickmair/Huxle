@@ -14,11 +14,12 @@
   </div>
 
   <ModalComponent
+    v-if="showModal"
     :open="true"
     description="Do you really want to change the language?"
     :switchLanguage="true"
+    :redirect="false"
     @answer="changeLanguage($event)"
-    v-if="showModal"
     @close="showModal = false"
   />
 </template>
