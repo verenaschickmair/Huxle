@@ -1,8 +1,9 @@
 <script lang="ts">
-import HuxleKeyboard from "@/components/HuxleKeyboard.vue";
 import ModalComponent from "@/components/ModalComponent.vue";
 import WordRow from "@/components/WordRow.vue";
 import { defineComponent } from "vue";
+import KeyboardComponent from "@/components/KeyboardComponent.vue";
+import {GuessedLetters} from "@/types/GuessedLetters";
 
 const ENTER = "{enter}";
 const BACKSPACE = "{bksp}";
@@ -10,12 +11,13 @@ const END_DURATION = 600;
 
 export default defineComponent({
   components: {
+    KeyboardComponent,
     WordRow,
-    HuxleKeyboard,
     ModalComponent,
   },
   methods: {
     handleInput(key: string) {
+      console.log("key is="+key)
       if (this.state.currentGuessIndex >= 6 || this.hasWon || this.hasLost) {
         return;
       }
@@ -30,7 +32,7 @@ export default defineComponent({
       } else if (currentGuess.length < 5 && key.length == 1) {
         const alphabetRegex = /[a-zA-Z]/;
         if (alphabetRegex.test(key)) {
-          this.state.guesses[this.state.currentGuessIndex] += key;
+          this.state.guesses[this.state.currentGuessIndex] += key.toLowerCase();
         }
       }
     },
@@ -119,11 +121,7 @@ export default defineComponent({
       state: {
         guesses: [] as string[],
         currentGuessIndex: 0,
-        guessedLetters: {
-          miss: [] as string[],
-          found: [] as string[],
-          hint: [] as string[],
-        },
+        guessedLetters: new GuessedLetters(),
         guessOrder: [] as string[],
       },
     };
@@ -148,10 +146,9 @@ export default defineComponent({
         @letterRowState="addRowState($event)"
       />
     </div>
-    <HuxleKeyboard
-      @onKeyPress="handleInput"
-      :guessedLetters="state.guessedLetters"
-    />
+    <KeyboardComponent
+        :guessed-letters="state.guessedLetters"
+        @onKeyPress="handleInput"/>
   </div>
 
   <ModalComponent :open="true" headline="You lost!" v-if="lost" />
