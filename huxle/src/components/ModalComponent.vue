@@ -170,7 +170,7 @@ export default defineComponent({
                   @click="
                     isOpen = false;
                     $emit('close', isOpen);
-                    if (redirect !== false) $router.back();
+                    if (redirect) $router.back();
                   "
                 >
                   Back

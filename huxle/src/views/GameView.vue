@@ -1,19 +1,19 @@
 <script lang="ts">
+import { ApiKey } from "@/api/ApiConfig";
 import GameControl from "@/components/GameControl.vue";
 import LanguageComponent from "@/components/LanguageComponent.vue";
 import ModalComponent from "@/components/ModalComponent.vue";
-import type {LanguageType} from "@/types/LanguageType";
-import type {WordData} from "@/types/WordData";
+import type { LanguageType } from "@/types/LanguageType";
+import type { WordData } from "@/types/WordData";
 import axios from "axios";
-import {defineComponent} from "vue";
-import {ApiKey} from "@/api/ApiConfig";
+import { defineComponent } from "vue";
 
 export default defineComponent({
-  components: {LanguageComponent, GameControl, ModalComponent},
+  components: { LanguageComponent, GameControl, ModalComponent },
   data() {
     return {
       selectedLanguage: "DE" as LanguageType,
-      word: {wordId: "", wordGerman: "", wordEnglish: ""} as WordData,
+      word: { wordId: "", wordGerman: "", wordEnglish: "" } as WordData,
       showModal: false,
     };
   },
@@ -26,14 +26,13 @@ export default defineComponent({
     let id = this.$route.params.id;
     console.log("The id is: " + id);
 
-    const {data} = await axios.get(
-        `http://localhost:1337/api/words?filters[word_id]=${id}`,
-        {
-          headers: {
-            Authorization:
-                "Bearer " + ApiKey,
-          },
-        }
+    const { data } = await axios.get(
+      `http://localhost:1337/api/words?filters[word_id]=${id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + ApiKey,
+        },
+      }
     );
 
     if (data.data.length) {
@@ -51,21 +50,21 @@ export default defineComponent({
 
 <template>
   <div>
-    <LanguageComponent @language-selected="handleLanguageChange($event)"/>
+    <LanguageComponent @language-selected="handleLanguageChange($event)" />
     <GameControl
-        :solution="word.wordEnglish"
-        v-if="selectedLanguage === 'EN'"
+      :solution="word.wordEnglish"
+      v-if="selectedLanguage === 'EN'"
     />
     <GameControl
-        :solution="word.wordGerman"
-        v-else-if="selectedLanguage === 'DE'"
+      :solution="word.wordGerman"
+      v-else-if="selectedLanguage === 'DE'"
     />
     <ModalComponent
-        :open="true"
-        headline="Oops..."
-        description="Sorry, the given link is invalid."
-        v-if="showModal"
-        @close="showModal = false"
+      :open="true"
+      headline="Oops..."
+      description="Sorry, the given link is invalid."
+      v-if="showModal"
+      @close="showModal = false"
     />
   </div>
 </template>

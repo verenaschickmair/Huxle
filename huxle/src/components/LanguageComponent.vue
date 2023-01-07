@@ -1,5 +1,5 @@
 <template>
-  <div class="text-center text-lg mt-4">
+  <div class="text-center text-lg py-8">
     <button
       v-for="(language, i) in languages"
       :key="i"
@@ -18,7 +18,6 @@
     :open="true"
     description="Do you really want to change the language?"
     :switchLanguage="true"
-    :redirect="false"
     @answer="changeLanguage($event)"
     @close="showModal = false"
   />

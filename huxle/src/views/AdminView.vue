@@ -16,12 +16,12 @@
 </template>
 
 <script lang="ts">
+import { ApiKey } from "@/api/ApiConfig";
 import ModalComponent from "@/components/ModalComponent.vue";
 import type { WordData } from "@/types/WordData";
 import axios from "axios";
 import { defineComponent } from "vue";
 import { uuid } from "vue-uuid";
-import {ApiKey} from "@/api/ApiConfig";
 
 export default defineComponent({
   // TODO create input fields and fill wordGerman and wordEnglish
@@ -70,8 +70,7 @@ export default defineComponent({
           },
           {
             headers: {
-              Authorization:
-                "Bearer " + ApiKey
+              Authorization: "Bearer " + ApiKey,
             },
           }
         )

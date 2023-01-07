@@ -1,6 +1,6 @@
 import type { LetterState } from "@/types/LetterState";
 
-export class KeyType {
+export class KeyClass {
   input: string;
   output: string;
   state: LetterState;
@@ -18,10 +18,9 @@ export class KeyType {
   }
 
   canChangeState(newState: LetterState) {
-      const currentStateNumber = this.getStateNumber(this.state)
-      const newStateNumber = this.getStateNumber(newState)
-      return currentStateNumber<newStateNumber
-
+    const currentStateNumber = this.getStateNumber(this.state);
+    const newStateNumber = this.getStateNumber(newState);
+    return currentStateNumber < newStateNumber;
   }
 
   private getStateNumber(state: LetterState) {
@@ -37,3 +36,9 @@ export class KeyType {
     }
   }
 }
+
+export type KeyType = {
+  input: string;
+  output: string;
+  state: LetterState;
+};

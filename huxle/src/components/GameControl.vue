@@ -1,9 +1,9 @@
 <script lang="ts">
+import KeyboardComponent from "@/components/KeyboardComponent.vue";
 import ModalComponent from "@/components/ModalComponent.vue";
 import WordRow from "@/components/WordRow.vue";
+import { GuessedLetters } from "@/types/GuessedLetters";
 import { defineComponent } from "vue";
-import KeyboardComponent from "@/components/KeyboardComponent.vue";
-import {GuessedLetters} from "@/types/GuessedLetters";
 
 const ENTER = "{enter}";
 const BACKSPACE = "{bksp}";
@@ -17,7 +17,7 @@ export default defineComponent({
   },
   methods: {
     handleInput(key: string) {
-      console.log("key is="+key)
+      console.log("key is=" + key);
       if (this.state.currentGuessIndex >= 6 || this.hasWon || this.hasLost) {
         return;
       }
@@ -135,7 +135,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="flex flex-col h-screen max-w-md mx-auto justify-evenly">
+  <div class="flex flex-col max-w-md mx-auto justify-center gap-16">
     <div>
       <WordRow
         v-for="(guess, i) in state.guesses"
@@ -147,17 +147,24 @@ export default defineComponent({
       />
     </div>
     <KeyboardComponent
-        :guessed-letters="state.guessedLetters"
-        @onKeyPress="handleInput"/>
+      :guessed-letters="state.guessedLetters"
+      @onKeyPress="handleInput"
+    />
   </div>
 
-  <ModalComponent :open="true" headline="You lost!" v-if="lost" />
+  <ModalComponent
+    :open="true"
+    headline="You lost!"
+    v-if="lost"
+    :redirect="true"
+  />
   <ModalComponent
     :open="true"
     :guessOrder="state.guessOrder"
     headline="You won!"
     description="Share your results with your friends."
     v-if="won"
+    :redirect="true"
   />
 </template>
 
