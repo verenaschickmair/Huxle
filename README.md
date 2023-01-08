@@ -1,9 +1,9 @@
 # Huxle
 
 ## Team Members
-* Kräutl Philip
-* Mayr Simon
-* Schickmair Verena
+* Kräutl Philip 🎒
+* Schickmair Verena 🎒
+* Girkinger Matthias
 
 ## Available Scripts
 
