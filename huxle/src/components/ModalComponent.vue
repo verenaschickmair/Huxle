@@ -44,11 +44,11 @@ export default defineComponent({
       if (guesses) {
         let emojis = "";
         guesses.forEach(function (guess, i) {
-          if(i % 5 == 0 && i>0) emojis += "\n";
+          if (i % 5 == 0 && i > 0) emojis += "\n";
           if (guess === "miss") emojis += "⬛";
           if (guess === "hint") emojis += "🟨";
           if (guess === "found") emojis += "🟩";
-        })
+        });
         clipboardCopy(emojis);
       }
     },
