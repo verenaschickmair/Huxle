@@ -1,9 +1,10 @@
 # Huxle
 
 ## Team Members
+* Girkinger Matthias
 * Kräutl Philip
 * Schickmair Verena
-* Girkinger Matthias
+
 
 ## Setup
 
