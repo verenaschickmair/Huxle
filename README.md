@@ -1,25 +1,20 @@
 # Huxle
 
 ## Team Members
-* Kräutl Philip 🎒
-* Schickmair Verena 🎒
+* Kräutl Philip
+* Schickmair Verena
 * Girkinger Matthias
 
-## Available Scripts
-
-In the project directory, you can run:
+## Setup
 
 ### `npm install`
+In the project directory and "huxle-backend".
 Installs the packages which are used in the project.
 
-### `npm start`
+### `npm run start`
+In the directory "huxle-backend" to start the Strapi Server.
+A registration may be required and the API-Key may be generated. This API-Key must then be set in the file "src/api/ApiConfig.ts".
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npx cypress open`
-
-Runs the cypress launchpad, where tests can be viewed.
+### `npm run dev`
+Runs the app in the development mode.
