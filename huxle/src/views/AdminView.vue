@@ -90,21 +90,35 @@
           </div>
           <div>
             <p
-                class="text-3xl font-bold tracking-tight text-white"
+                class="text-xl font-bold tracking-tight text-white"
                 id="join-heading"
             >
               German Word
             </p>
-            <SimpleInputField />
+            <div class="mt-1">
+              <input
+                  type="text"
+                  id="german"
+                  v-model="word.wordGerman"
+                  class="py-3 block w-80 rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm"
+              />
+            </div>
           </div>
           <div>
             <p
-                class="text-3xl font-bold tracking-tight text-white"
+                class="text-xl font-bold tracking-tight text-white"
                 id="join-heading"
             >
               English Word
             </p>
-            <SimpleInputField />
+            <div class="mt-1">
+              <input
+                  type="text"
+                  id="english"
+                  v-model="word.wordEnglish"
+                  class="py-3 block w-80 rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm"
+              />
+            </div>
           </div>
           <button
               class="block w-full rounded-md border border-transparent bg-gray-800 py-3 px-5 text-center text-base font-medium text-white shadow-md hover:bg-gray-600 sm:inline-block sm:w-auto"
@@ -132,12 +146,9 @@ import type { WordData } from "@/types/WordData";
 import axios from "axios";
 import { defineComponent } from "vue";
 import { uuid } from "vue-uuid";
-import SimpleInputField from "@/components/SimpleInputField.vue";
 
 export default defineComponent({
-  // TODO create input fields and fill wordGerman and wordEnglish
   components: {
-    SimpleInputField,
     ModalComponent,
   },
   data() {
