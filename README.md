@@ -13,7 +13,7 @@ In the project directory and "huxle-backend".
 Installs the packages which are used in the project.
 
 ### `npm run start`
-In the directory "huxle-backend" to start the Strapi Server.
+In the directory "huxle-backend" to start the Strapi server.
 A registration may be required and the API-Key may be generated. This API-Key must then be set in the file "src/api/ApiConfig.ts".
 
 
