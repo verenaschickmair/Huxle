@@ -40,14 +40,15 @@ export default defineComponent({
       }
     },
     copyGuesses() {
-      if (this.guessOrder) {
+      const guesses = this.guessOrder;
+      if (guesses) {
         let emojis = "";
-        for (let item in this.guessOrder) {
-          if (item === "miss") emojis + String.fromCodePoint(0x1f354);
-          if (item === "hint") emojis + String.fromCodePoint(0x1f354);
-          if (item === "found") emojis + String.fromCodePoint(0x1f354);
-        }
-        console.log(emojis);
+        guesses.forEach(function (guess, i) {
+          if(i % 5 == 0 && i>0) emojis += "\n";
+          if (guess === "miss") emojis += "⬛";
+          if (guess === "hint") emojis += "🟨";
+          if (guess === "found") emojis += "🟩";
+        })
         clipboardCopy(emojis);
       }
     },
