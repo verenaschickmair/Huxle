@@ -1,9 +1,9 @@
 # Huxle ✨
 
 ## Team Members
-* Girkinger Matthias
-* Kräutl Philip
-* Schickmair Verena
+* Girkinger Matthias s2210455015
+* Kräutl Philip S2210455019
+* Schickmair Verena S2210629019
 
 
 ## Setup
