@@ -1,24 +1,8 @@
 <template>
-  <div class="keys">
-    <div class="flex w-full justify-center">
+  <div class="w-full px-8 sm:w-3/4 lg:w-1/2 xl:w-1/3 mx-auto mt-8 md:mt-16">
+    <div class="flex justify-center flex-wrap items-center gap-2">
       <KeyboardLetter
-        v-for="(keyType, i) in keyBoardRow1"
-        :key="i"
-        :key-type="keyType"
-        @click="$emit('onKeyPress', keyType.output)"
-      />
-    </div>
-    <div class="flex w-full justify-center">
-      <KeyboardLetter
-        v-for="(keyType, i) in keyBoardRow2"
-        :key="i"
-        :key-type="keyType"
-        @click="$emit('onKeyPress', keyType.output)"
-      />
-    </div>
-    <div class="flex w-full justify-center">
-      <KeyboardLetter
-        v-for="(keyType, i) in keyBoardRow3"
+        v-for="(keyType, i) in keyTypes"
         :key="i"
         :key-type="keyType"
         @click="$emit('onKeyPress', keyType.output)"
@@ -30,7 +14,6 @@
 <script lang="ts">
 import KeyboardLetter from "@/components/KeyboardLetter.vue";
 import { GuessedLetters } from "@/types/GuessedLetters";
-import type { KeyType } from "@/types/KeyType";
 import { KeyClass } from "@/types/KeyType";
 import type { LetterState } from "@/types/LetterState";
 import { defineComponent } from "vue";
@@ -67,7 +50,6 @@ export default defineComponent({
         new KeyClass("K", "K", "empty"),
         new KeyClass("L", "L", "empty"),
 
-        new KeyClass("Enter", "{enter}", "empty"),
         new KeyClass("Y", "Y", "empty"),
         new KeyClass("C", "C", "empty"),
         new KeyClass("V", "V", "empty"),
@@ -75,19 +57,9 @@ export default defineComponent({
         new KeyClass("N", "N", "empty"),
         new KeyClass("M", "M", "empty"),
         new KeyClass("Backspace", "{bksp}", "empty"),
+        new KeyClass("Enter", "{enter}", "empty"),
       ],
     };
-  },
-  computed: {
-    keyBoardRow1(): KeyType[] {
-      return this.keyTypes.slice(0, 10);
-    },
-    keyBoardRow2(): KeyType[] {
-      return this.keyTypes.slice(10, 19);
-    },
-    keyBoardRow3(): KeyType[] {
-      return this.keyTypes.slice(19, this.keyTypes.length);
-    },
   },
   methods: {
     updateState(value: string, state: LetterState) {

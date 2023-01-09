@@ -1,6 +1,6 @@
 <template>
   <button
-    class="key__button"
+    class="h-fit w-fit key_button"
     :class="{
       miss: keyType?.state === 'miss',
       found: keyType?.state === 'found',
@@ -42,17 +42,15 @@ button.hint:not(.found) {
 }
 
 .key_letter {
-  min-width: 30px;
+  min-width: 2rem;
 }
 
-.key__button {
+.key_button {
   box-sizing: border-box;
   font-size: 1.2rem;
   text-align: center;
   color: #555;
-  width: fit-content;
   cursor: pointer;
-  margin: 8px;
   padding: 8px;
   border: 1px solid #f2f2f2;
   text-shadow: 0 0.5px 1px #777, 0 2px 6px #f2f2f2;

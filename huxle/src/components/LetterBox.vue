@@ -1,6 +1,6 @@
 <template>
   <div
-    class="col-span-1 flex items-center justify-center h-16 uppercase border-2 border-gray-200 transition-all duration-200"
+    class="col-span-1 flex items-center justify-center h-12 w-12 sm:w-16 sm:h-16 uppercase border-2 border-gray-200 transition-all duration-200"
     :class="{
       miss: letterState === 'miss',
       found: letterState === 'found',

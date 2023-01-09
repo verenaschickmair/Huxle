@@ -1,5 +1,5 @@
 <template>
-  <div class="text-center text-lg py-8">
+  <div class="w-full text-center text-lg py-8">
     <button
       v-for="(language, i) in languages"
       :key="i"

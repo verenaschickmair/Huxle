@@ -49,8 +49,9 @@ export default defineComponent({
 </script>
 
 <template>
-  <div>
+  <div class="flex flex-col">
     <LanguageComponent @language-selected="handleLanguageChange($event)" />
+
     <GameControl
       :solution="word.wordEnglish"
       v-if="selectedLanguage === 'EN'"

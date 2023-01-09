@@ -135,22 +135,19 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="flex flex-col max-w-md mx-auto justify-center gap-16">
-    <div>
-      <WordRow
-        v-for="(guess, i) in state.guesses"
-        :key="i"
-        :value="guess"
-        :solution="$props.solution"
-        :submitted="i < state.currentGuessIndex"
-        @letterRowState="addRowState($event)"
-      />
-    </div>
-    <KeyboardComponent
-      :guessed-letters="state.guessedLetters"
-      @onKeyPress="handleInput"
-    />
-  </div>
+  <WordRow
+    v-for="(guess, i) in state.guesses"
+    :key="i"
+    :value="guess"
+    :solution="$props.solution"
+    :submitted="i < state.currentGuessIndex"
+    @letterRowState="addRowState($event)"
+  />
+
+  <KeyboardComponent
+    :guessed-letters="state.guessedLetters"
+    @onKeyPress="handleInput"
+  />
 
   <ModalComponent
     :open="true"

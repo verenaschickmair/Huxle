@@ -1,5 +1,5 @@
 <template>
-  <div class="grid max-w-xs grid-cols-5 gap-1 mx-auto mb-1">
+  <div class="grid grid-cols-5 gap-1 mx-auto mb-1">
     <LetterBox
       v-for="i in 5"
       :key="i"
