@@ -98,7 +98,7 @@
             <div class="mt-1">
               <input
                 type="text"
-                id="german"
+                id="germanInput"
                 v-model="word.wordGerman"
                 class="py-3 block w-80 rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm"
               />
@@ -114,7 +114,7 @@
             <div class="mt-1">
               <input
                 type="text"
-                id="english"
+                id="englishInput"
                 v-model="word.wordEnglish"
                 class="py-3 block w-80 rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm"
               />

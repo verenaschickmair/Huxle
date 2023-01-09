@@ -14,6 +14,6 @@ describe("HomeView", () => {
         expect(wrapper.find('[id="checkGameCodeButton"]').exists()).toBe(true)
     });
     it('should find game code input', () => {
-        expect(wrapper.find('[id="gameCodeInput"]').exists()).toBe(true)
+        expect(wrapper.find('[id="code"]').exists()).toBe(true)
     });
 })
