@@ -121,6 +121,7 @@
             </div>
           </div>
           <button
+            id="submitWordButton"
             class="block w-full rounded-md border border-transparent bg-gray-800 py-3 px-5 text-center text-base font-medium text-white shadow-md hover:bg-gray-600 sm:inline-block sm:w-auto"
             @click="upload()"
           >
