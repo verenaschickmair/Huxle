@@ -98,7 +98,7 @@
             <div class="mt-1">
               <input
                 type="text"
-                id="german"
+                id="germanInput"
                 v-model="word.wordGerman"
                 class="py-3 block w-80 rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm"
               />
@@ -114,13 +114,14 @@
             <div class="mt-1">
               <input
                 type="text"
-                id="english"
+                id="englishInput"
                 v-model="word.wordEnglish"
                 class="py-3 block w-80 rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm"
               />
             </div>
           </div>
           <button
+            id="submitWordButton"
             class="block w-full rounded-md border border-transparent bg-gray-800 py-3 px-5 text-center text-base font-medium text-white shadow-md hover:bg-gray-600 sm:inline-block sm:w-auto"
             @click="upload()"
           >
