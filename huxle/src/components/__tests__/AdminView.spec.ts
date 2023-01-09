@@ -7,4 +7,13 @@ describe("AdminView", () => {
     it('should render correctly', () => {
         expect(wrapper.html()).toMatchSnapshot()
     });
+    it('should find submit button', () => {
+        expect(wrapper.find('[id="submitWordButton"]').exists()).toBe(true)
+    });
+    it('should find word input', () => {
+        expect(wrapper.find('[id="wordInput"]').exists()).toBe(true)
+    });
+    it ('should find word list', () => {
+        expect(wrapper.find('[id="wordList"]').exists()).toBe(true)
+    });
 })

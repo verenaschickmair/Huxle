@@ -7,4 +7,13 @@ describe("HomeView", () => {
     it('should render correctly', () => {
         expect(wrapper.html()).toMatchSnapshot()
     });
+    it('should find admin button', () => {
+        expect(wrapper.find('[id="redirectToAdminButton"]').exists()).toBe(true)
+    });
+    it('should find game code button', () => {
+        expect(wrapper.find('[id="checkGameCodeButton"]').exists()).toBe(true)
+    });
+    it('should find game code input', () => {
+        expect(wrapper.find('[id="gameCodeInput"]').exists()).toBe(true)
+    });
 })
