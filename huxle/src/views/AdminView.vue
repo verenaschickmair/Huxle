@@ -97,6 +97,8 @@
             </p>
             <div class="mt-1">
               <input
+                :class="{ 'border-red-500': this.errorGerman }"
+                @click="this.errorGerman = false"
                 type="text"
                 id="germanInput"
                 v-model="word.wordGerman"
@@ -113,6 +115,8 @@
             </p>
             <div class="mt-1">
               <input
+                :class="{ 'border-red-500': this.errorEnglish }"
+                @click="this.errorEnglish = false"
                 type="text"
                 id="englishInput"
                 v-model="word.wordEnglish"
@@ -161,6 +165,8 @@ export default defineComponent({
         wordEnglish: "",
       } as WordData,
       showModal: false,
+      errorEnglish: false,
+      errorGerman: false,
     };
   },
   methods: {
@@ -174,9 +180,11 @@ export default defineComponent({
     },
     checkInputs(): boolean {
       if (this.word.wordEnglish.length !== 5) {
+        this.errorEnglish = true;
         return false;
       }
       if (this.word.wordGerman.length !== 5) {
+        this.errorGerman = true;
         return false;
       }
       return true;
