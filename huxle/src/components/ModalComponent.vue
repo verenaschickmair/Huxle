@@ -42,7 +42,7 @@ export default defineComponent({
     copyGuesses() {
       const guesses = this.guessOrder;
       if (guesses) {
-        let emojis = "";
+        let emojis = "Hey there, look at my result on Huxle: \n";
         guesses.forEach(function (guess, i) {
           if (i % 5 == 0 && i > 0) emojis += "\n";
           if (guess === "miss") emojis += "⬛";
@@ -130,9 +130,9 @@ export default defineComponent({
                   </div>
 
                   <div class="mt-2 flex justify-center" v-if="guessOrder">
-                    <div class="w-20 grid grid-cols-5 gap-1 grid-rows-5">
+                    <div class="w-auto grid grid-cols-5 gap-1 grid-rows-5">
                       <div
-                        class="col-span-1 border flex items-center justify-center h-4"
+                        class="col-span-1 border flex items-center justify-center h-4 w-4"
                         v-for="(item, index) in guessOrder"
                         :key="index"
                         :class="{

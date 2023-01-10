@@ -1,6 +1,6 @@
-import { describe, it, expect } from "vitest";
-import { mount } from "@vue/test-utils";
 import AdminView from "@/views/AdminView.vue";
+import { mount } from "@vue/test-utils";
+import { describe, expect, it } from "vitest";
 
 describe("AdminView", () => {
   const wrapper = mount(AdminView);

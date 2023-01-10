@@ -1,6 +1,6 @@
 <template>
   <div
-    class="relative bg-gray-400 lg:col-span-10 lg:col-start-3 lg:row-start-1 lg:grid lg:grid-cols-10 lg:items-center lg:rounded-3xl"
+    class="relative h-screen bg-gray-400 lg:col-span-10 lg:col-start-3 lg:row-start-1 lg:grid lg:grid-cols-10 lg:items-center lg:rounded-3xl"
   >
     <div
       class="absolute inset-0 hidden overflow-hidden rounded-3xl lg:block"
@@ -74,10 +74,10 @@
       </svg>
     </div>
     <div
-      class="relative max-w-md space-y-12 py-12 px-4 sm:max-w-3xl sm:py-16 sm:px-6 lg:col-span-6 lg:col-start-4 lg:max-w-none lg:p-0"
+      class="relative flex lg:block justify-center space-y-12 py-12 px-4 sm:py-16 sm:px-6 lg:col-span-6 lg:col-start-4 lg:p-0"
     >
       <div
-        class="relative max-w-md space-y-12 py-12 px-4 sm:max-w-3xl sm:py-16 sm:px-6 lg:col-span-6 lg:col-start-4 lg:max-w-none lg:p-0"
+        class="relative space-y-12 py-12 px-4 sm:py-16 sm:px-6 lg:col-span-6 lg:col-start-4 lg:p-0"
       >
         <div class="space-y-3">
           <div>
@@ -102,7 +102,7 @@
                 type="text"
                 id="germanInput"
                 v-model="word.wordGerman"
-                class="py-3 block w-80 rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm"
+                class="w-full py-3 block sm:w-80 rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm"
               />
             </div>
           </div>
@@ -120,7 +120,7 @@
                 type="text"
                 id="englishInput"
                 v-model="word.wordEnglish"
-                class="py-3 block w-80 rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm"
+                class="w-full py-3 block sm:w-80 rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm"
               />
             </div>
           </div>

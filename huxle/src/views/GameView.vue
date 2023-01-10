@@ -24,7 +24,6 @@ export default defineComponent({
   },
   async created() {
     let id = this.$route.params.id;
-    console.log("The id is: " + id);
 
     const { data } = await axios.get(
       `http://localhost:1337/api/words?filters[word_id]=${id}`,

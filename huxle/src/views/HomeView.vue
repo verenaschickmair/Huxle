@@ -148,50 +148,52 @@ export default {
             </svg>
           </div>
           <div
-            class="relative max-w-md space-y-12 py-12 px-4 sm:max-w-3xl sm:py-16 sm:px-6 lg:col-span-6 lg:col-start-4 lg:max-w-none lg:p-0"
+            class="relative flex flex-1 w-full justify-center lg:block py-12 px-4 sm:py-16 sm:px-6 lg:col-span-6 lg:col-start-4 lg:p-0"
           >
-            <div>
-              <h2
-                class="text-3xl my-3 font-bold tracking-tight text-white"
-                id="join-heading"
-              >
-                Create your own Huxle
-              </h2>
-
-              <button
-                id="redirectToAdminButton"
-                class="block w-full rounded-md border border-transparent bg-gray-800 py-3 px-5 text-center text-base font-medium text-white shadow-md hover:bg-gray-600 sm:inline-block sm:w-auto"
-                @click="$router.push('/create')"
-              >
-                New Huxle
-              </button>
-            </div>
-            <div class="space-y-3">
-              <div>
+            <div class="space-y-12">
+              <div class="w-full">
                 <h2
-                  class="text-3xl font-bold tracking-tight text-white"
+                  class="text-3xl my-3 font-bold tracking-tight text-white"
                   id="join-heading"
                 >
-                  Join game
+                  Create your own Huxle
                 </h2>
+
+                <button
+                  id="redirectToAdminButton"
+                  class="block w-full sm:w-80 rounded-md border border-transparent bg-gray-800 py-3 px-5 text-center text-base font-medium text-white shadow-md hover:bg-gray-600 sm:inline-block"
+                  @click="$router.push('/create')"
+                >
+                  New Huxle
+                </button>
               </div>
-              <div>
-                <div class="mt-1">
-                  <input
-                    type="text"
-                    id="code"
-                    v-model="code"
-                    class="py-3 block w-80 rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm"
-                  />
+              <div class="space-y-3 w-full">
+                <div>
+                  <h2
+                    class="text-3xl font-bold tracking-tight text-white"
+                    id="join-heading"
+                  >
+                    Join game
+                  </h2>
                 </div>
+                <div>
+                  <div class="mt-1">
+                    <input
+                      type="text"
+                      id="code"
+                      v-model="code"
+                      class="w-full py-3 block sm:w-80 rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm"
+                    />
+                  </div>
+                </div>
+                <button
+                  id="checkGameCodeButton"
+                  class="block w-full sm:w-80 rounded-md border border-transparent bg-gray-800 py-3 px-5 text-center text-base font-medium text-white shadow-md hover:bg-gray-600 sm:inline-block"
+                  @click="checkCode()"
+                >
+                  Enter code
+                </button>
               </div>
-              <button
-                id="checkGameCodeButton"
-                class="block w-full rounded-md border border-transparent bg-gray-800 py-3 px-5 text-center text-base font-medium text-white shadow-md hover:bg-gray-600 sm:inline-block sm:w-auto"
-                @click="checkCode()"
-              >
-                Enter code
-              </button>
             </div>
           </div>
         </div>
